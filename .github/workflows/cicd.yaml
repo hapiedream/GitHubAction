@@ -15,7 +15,7 @@ jobs:
 
       - name: Display system information
         run: |
-          echo "Running on self-hosted runner"
+          echo "Running on a self-hosted Ubuntu runner"
           uname -a  # Prints system info (Linux/macOS)
           whoami    # Prints the current user
 
