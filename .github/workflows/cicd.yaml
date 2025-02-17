@@ -1,25 +1,31 @@
-name: Build a WAR file using Maven
+name: Self-Hosted Runner CI
 
 on:
-
   push:
-
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
-
   build:
-
-    runs-on: self-hosted
+    runs-on: self-hosted  # Uses the self-hosted runner instead of GitHub-hosted
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - uses: actions/checkout@v3
+      - name: Display system information
+        run: |
+          echo "Running on self-hosted runner"
+          uname -a  # Prints system info (Linux/macOS)
+          whoami    # Prints the current user
 
-    - name: Set up JDK 11
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '11'
-    - name: Build with Maven
-      run: mvn clean install -f MyWebApp/pom.xml
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
