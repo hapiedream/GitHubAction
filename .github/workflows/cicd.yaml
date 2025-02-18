@@ -1,31 +1,10 @@
-name: Self-Hosted Runner CI
-
-on:
-  push:
-    branches:
-      - main
-
+name: CI
+on: [push, pull_request]
 jobs:
   build:
-    runs-on: self-hosted  # Uses the self-hosted runner instead of GitHub-hosted
-
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Display system information
-        run: |
-          echo "Running on a self-hosted Ubuntu runner"
-          uname -a  # Prints system info (Linux/macOS)
-          whoami    # Prints the current user
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Run build
+        run: make build
